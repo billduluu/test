@@ -41,7 +41,7 @@ jobs:
         run: echo $GITHUB_PREVIEW_URL
       - name: Add the preview report to pull request
         uses: mshick/add-pr-comment@v2
-          message: '| Preview Link  | - ${{ env.GITHUB_PREVIEW_URL }} |'
+          message: ` Preview Link ` ${{ env.GITHUB_PREVIEW_URL }}
           proxy-url: ${{ steps.preview-deployment.outputs.result }}
 
 
