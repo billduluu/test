@@ -2,10 +2,7 @@ name: Vercel Preview Deployment
 
 env:
   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-
-on:
-  push:
+	@@ -9,7 +9,7 @@ on:
     branches-ignore:
       - main
 jobs:
@@ -13,20 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Cache node_modules
-        id: cache-nodemodules
-        uses: actions/cache@v2
-        env:
-          cache-name: cache-node-modules
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
-      - name: Install Dependencies
-        if: steps.cache-nodemodules.outputs.cache-hit != 'true'
+	@@ -30,14 +30,17 @@ jobs:
         run: yarn install --frozen-lockfile
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
@@ -41,18 +25,6 @@ jobs:
         run: echo $GITHUB_PREVIEW_URL
       - name: Add the preview report to pull request
         uses: mshick/add-pr-comment@v2
+        with:
           message: ${{ env.GITHUB_PREVIEW_URL }}
           proxy-url: ${{ steps.preview-deployment.outputs.result }}
-
-
-
-
-
-          #  with:
-          # script: 
-          # | const message = [
-          #   `Preview link: `,
-          #   '|Name | Link|',
-          #   '| --- | --- |',
-          #   '| int-lms-web | `${{ env.GITHUB_PREVIEW_URL }}`'
-          # ]
