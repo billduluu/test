@@ -17,7 +17,7 @@ export default function Home() {
 			<main className={styles.main}>
 				<div className={styles.description}>
 					<p>
-						Duluu124141414124124&nbsp;
+						s&nbsp;
 						<code className={styles.code}>pages/index.tsx</code>
 					</p>
 					<div>
